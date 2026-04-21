@@ -3,8 +3,8 @@
 #Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 #(https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
-ARG ZED_SDK=5.2
-ARG CUDA=13.0
+ARG ZED_SDK=4.1
+ARG CUDA=12.1
 ARG UBUNTU=22.04
 
 FROM stereolabs/zed:${ZED_SDK}-devel-cuda${CUDA}-ubuntu${UBUNTU}
@@ -40,8 +40,16 @@ RUN apt install -y ros-humble-rmw-cyclonedds-cpp
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean
 
+# install other dependencies
+RUN apt-get install -y build-essential python3-dev libffi-dev libssl-dev
+RUN apt-get install -y libavcodec-dev libavformat-dev libavdevice-dev libavfilter-dev libavutil-dev libswscale-dev libswresample-dev libpostproc-dev pkg-config
+
+#setup OpenTeleVision 
+RUN git clone https://github.com/OpenTeleVision/TeleVision.git
+RUN pip3 install -r ./TeleVision/requirements.txt
+
 # Setup environment variables
-COPY ./ros_entrypoint_cuda.sh /sbin/ros_entrypoint.sh
+COPY ./ros_entrypoint.sh /sbin/ros_entrypoint.sh
 RUN chmod +x /sbin/ros_entrypoint.sh
 ENTRYPOINT ["/sbin/ros_entrypoint.sh"]
 CMD ["bash"]

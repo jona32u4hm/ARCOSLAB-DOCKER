@@ -5,12 +5,12 @@
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
-ZED_SDK = 5.2
-CUDA = 13.0
+ZED_SDK = 4.1
+CUDA = 12.1
 UBUNTU = 22.04
 ROS_INSTALL_TYPE = base
 
-CONTAINER_NAME = zedsdk-${ZED_SDK}-jetson-jp${JETPACK}-ros2-humble-${ROS_INSTALL_TYPE}
+CONTAINER_NAME = zedsdk-${ZED_SDK}-cuda${CUDA}-ros2-humble-${ROS_INSTALL_TYPE}
 TAG = autonomousrobotscognitivesystemslab/arcoslab:${CONTAINER_NAME}
 
 .PHONY: help defualt .build run debug stop
@@ -49,6 +49,7 @@ run:			## Starts Docker image
 			-v /etc/systemd/system/zed_x_daemon.service:/etc/systemd/system/zed_x_daemon.service \
 			-v ${PWD}/resources/:/usr/local/zed/resources/ \
 			-v ${PWD}/settings/:/usr/local/zed/settings:rw \
+			-v ${PWD}/TeleVision/:/workspace/TeleVision:rw \
 			--name ${CONTAINER_NAME} \
 			${TAG} bash -c \
 			"tail -f /dev/null"
