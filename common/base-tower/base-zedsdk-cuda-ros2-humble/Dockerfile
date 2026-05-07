@@ -1,5 +1,6 @@
 # ARCOSLAB - Universidad de Costa Rica, 2026
 # Author: Rodrigo Chacon Quesada (rodrigo.chacon@ucr.ac.cr)
+# Modified by: Jonatan Hidalgo-Morales (jonatan.hidalgo@ucr.ac.cr)
 #Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 #(https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
@@ -40,13 +41,54 @@ RUN apt install -y ros-humble-rmw-cyclonedds-cpp
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean
 
-# install other dependencies
-RUN apt-get install -y build-essential python3-dev libffi-dev libssl-dev
-RUN apt-get install -y libavcodec-dev libavformat-dev libavdevice-dev libavfilter-dev libavutil-dev libswscale-dev libswresample-dev libpostproc-dev pkg-config
+
+# Install Python 3.8 and dependencies
+
+RUN apt-get update && apt-get install -y \
+   software-properties-common \
+   && add-apt-repository ppa:deadsnakes/ppa -y \
+   && apt-get update && apt-get install -y \
+   python3.8 \
+   python3.8-dev \
+   python3.8-venv \
+   python3.8-distutils \
+   python3-pip \
+   build-essential \
+   libffi-dev \
+   libssl-dev \
+   libavcodec-dev \
+   libavformat-dev \
+   libavdevice-dev \
+   libavfilter-dev \
+   libavutil-dev \
+   libswscale-dev \
+   libswresample-dev \
+   libpostproc-dev \
+   pkg-config \
+   libvulkan1 \
+   && rm -rf /var/lib/apt/lists/*
+
+#virtual environment:
+RUN python3.8 -m venv /opt/myenv
+ENV PATH="/opt/myenv/bin:$PATH"
+
+ 
+
+
+
 
 #setup OpenTeleVision 
 RUN git clone https://github.com/OpenTeleVision/TeleVision.git
-RUN pip3 install -r ./TeleVision/requirements.txt
+RUN pip install --no-cache-dir -r TeleVision/requirements.txt
+
+# NVIDIA ICD/vulkan fix
+RUN mkdir -p /root/fix && \
+ echo '{ "file_format_version" : "1.0.0", "ICD" : { "library_path" : "libGLX_nvidia.so.0", "api_version" : "1.3" } }' > /root/fix/nvidia_icd.json
+# Set NVIDIA environment variables for the runtime:
+ENV VK_ICD_FILENAMES=/root/fix/nvidia_icd.json
+
+
+
 
 # Setup environment variables
 COPY ./ros_entrypoint.sh /sbin/ros_entrypoint.sh

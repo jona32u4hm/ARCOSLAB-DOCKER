@@ -42,6 +42,9 @@ run:			## Starts Docker image
 			--net=host \
 			--runtime nvidia \
 			--privileged \
+			--env NVIDIA_VISIBLE_DEVICES=all \
+			--env NVIDIA_DRIVER_CAPABILITIES=all \
+			--shm-size=2gb \
 			-e DISPLAY=${DISPLAY} \
 			-v /dev/:/dev/ \
 			-v /tmp/:/tmp/ \
@@ -50,6 +53,7 @@ run:			## Starts Docker image
 			-v ${PWD}/resources/:/usr/local/zed/resources/ \
 			-v ${PWD}/settings/:/usr/local/zed/settings:rw \
 			-v ${PWD}/TeleVision/:/workspace/TeleVision:rw \
+			-v ${PWD}/isaacgym/:/workspace/IsaacGym:rw \
 			--name ${CONTAINER_NAME} \
 			${TAG} bash -c \
 			"tail -f /dev/null"
