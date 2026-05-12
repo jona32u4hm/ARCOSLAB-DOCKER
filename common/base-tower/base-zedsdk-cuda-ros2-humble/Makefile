@@ -53,11 +53,33 @@ run:			## Starts Docker image
 			-v ${PWD}/resources/:/usr/local/zed/resources/ \
 			-v ${PWD}/settings/:/usr/local/zed/settings:rw \
 			-v ${PWD}/TeleVision/:/workspace/TeleVision:rw \
-			-v ${PWD}/isaacgym/:/workspace/IsaacGym:rw \
 			--name ${CONTAINER_NAME} \
 			${TAG} bash -c \
 			"tail -f /dev/null"
 
+simulation:			## Starts Docker image
+	@xhost +si:localuser:root >> /dev/null
+	@docker run \
+			--detach \
+			--rm \
+			--net=host \
+			--runtime nvidia \
+			--privileged \
+			--env NVIDIA_VISIBLE_DEVICES=all \
+			--env NVIDIA_DRIVER_CAPABILITIES=all \
+			--shm-size=2gb \
+			-e DISPLAY=${DISPLAY} \
+			-v /dev/:/dev/ \
+			-v /tmp/:/tmp/ \
+			-v /var/nvidia/nvcam/settings/:/var/nvidia/nvcam/settings/ \
+			-v /etc/systemd/system/zed_x_daemon.service:/etc/systemd/system/zed_x_daemon.service \
+			-v ${PWD}/resources/:/usr/local/zed/resources/ \
+			-v ${PWD}/settings/:/usr/local/zed/settings:rw \
+			-v ${PWD}/TeleVision/:/workspace/TeleVision:rw \
+			-v ${PWD}/isaacgym/:/workspace/IsaacGym:rw \
+			--name ${CONTAINER_NAME} \
+			${TAG} bash -c \
+			"tail -f /dev/null"
 
 debug: 			## Starts a cli inside the container
 debug:.start_if_not_running
