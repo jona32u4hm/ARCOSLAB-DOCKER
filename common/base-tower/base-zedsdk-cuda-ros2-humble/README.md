@@ -8,15 +8,15 @@ To allow WebXR on Apple Vision, an https connection is necessary. If using Tails
 ## To serve https on Tailscale:
 1. Enter the **DNS** tab in the Tailscale admin page and make sure *MagicDNS* and *HTTPS Certificates* are both enabled
 2. From **Machines** tab select the machine to certify and under **Machine Details** copy the **full domain**. 
-3. Run ```bash sudo tailscale cert <paste domain here> ```
+3. Run ``` sudo tailscale cert <paste domain here> ```
 
 ## Build
-To build the container run ```bash make .build* ```
+To build the container run ``` make .build ```
 
 ## To run the simulation:
 - First download Isaac Gym Preview 4 and place the folder named *isaacgym* inside this directory.
-- Use *make simulation* to run the container with the Isaac Gym folder mounted.
-- Enter the container with *make debug* and run *cd /workspace/IsaacGym/python & pip install -e .*
-- Finally *cd /workspace/TeleVision/teleop & python teleop_hand.py*
+- Use ```make simulation``` to run the container with the Isaac Gym folder mounted.
+- Enter the container with ```make debug``` and run ```cd /workspace/IsaacGym/python & pip install -e .```
+- Finally ```cd /workspace/TeleVision/teleop & python teleop_hand.py```
 - Connect from AVP on por **8012**.
 
