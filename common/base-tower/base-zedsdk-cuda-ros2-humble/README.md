@@ -18,5 +18,5 @@ To build the container run ``` make .build ```
 - Use ```make simulation``` to run the container with the Isaac Gym folder mounted.
 - Enter the container with ```make debug``` and run ```cd /workspace/IsaacGym/python & pip install -e .```
 - Finally ```cd /workspace/TeleVision/teleop & python teleop_hand.py```
-- Connect from AVP on por **8012**.
+- Connect from AVP on port **8012** using safari. The URL should look something like this: ```https://100.89.123.11:8012?ws=wss://100.89.123.11:8012```
 
