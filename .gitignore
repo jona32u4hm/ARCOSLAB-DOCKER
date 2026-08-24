@@ -1,6 +1,37 @@
-./common/base-tower/base-zedsdk-cuda-ros2-humble/resources/
-./common/base-tower/base-zedsdk-cuda-ros2-humble/settings/
+#Archivos generados / configuraciones locales ZED
+/common/base-tower/base-zedsdk-cuda-ros2-humble/resources/
+/common/base-tower/base-zedsdk-cuda-ros2-humble/settings/
+/common/base-jetson/base-zedsdk-jetson-jp-ros2-humble/resources/
+/common/base-jetson/base-zedsdk-jetson-jp-ros2-humble/settings/
+
+#Componentes externos / pesados
 **/TeleVision/
-./common.zip
-./common/base-jetson/base-zedsdk-jetson-jp-ros2-humble/resources/
-./common/base-jetson/base-zedsdk-jetson-jp-ros2-humble/settings/
+**/isaacgym/
+Bitácoras locales
+/common/bitacora2.txt
+
+#Entornos virtuales dentro del proyecto
+.venv/
+pycache/
+*.pyc
+*.pyo
+*.pyd
+
+#Entorno virtual creado directamente en la raíz del repo
+/bin/
+/include/
+/lib/
+/lib64
+/share/
+/pyvenv.cfg
+
+#Bases de datos / logs
+*.db
+*.sqlite3
+*.log
+Archivos comprimidos
+*.zip
+
+#Certificados locales de Tailscale
+tower.tail219772.ts.net.key
+tower.tail219772.ts.net.crt

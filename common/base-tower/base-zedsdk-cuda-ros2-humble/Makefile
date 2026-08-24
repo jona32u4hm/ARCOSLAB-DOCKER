@@ -77,6 +77,7 @@ simulation:			## Starts Docker image
 			-v ${PWD}/settings/:/usr/local/zed/settings:rw \
 			-v ${PWD}/TeleVision/:/workspace/TeleVision:rw \
 			-v ${PWD}/isaacgym/:/workspace/IsaacGym:rw \
+			-it \
 			--name ${CONTAINER_NAME} \
 			${TAG} bash -c \
 			"tail -f /dev/null"
