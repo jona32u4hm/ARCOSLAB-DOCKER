@@ -5,10 +5,16 @@
 /common/base-jetson/base-zedsdk-jetson-jp-ros2-humble/settings/
 
 #Componentes externos / pesados
-**/TeleVision/
 **/isaacgym/
 Bitácoras locales
 /common/bitacora2.txt
+/common/base-tower/base-zedsdk-cuda-ros2-humble/TeleVision/**
+
+# Excepto los Python de teleop/dynamixel
+!/common/base-tower/base-zedsdk-cuda-ros2-humble/TeleVision/teleop/
+!/common/base-tower/base-zedsdk-cuda-ros2-humble/TeleVision/teleop/dynamixel/
+!/common/base-tower/base-zedsdk-cuda-ros2-humble/TeleVision/teleop/dynamixel/*.py
+
 
 #Entornos virtuales dentro del proyecto
 .venv/
